@@ -3,7 +3,7 @@ export class dish{
     public did:number,
     public dname:string,
     public dprice:number,
-    public dimg:string,
+    public dimage:string,
     public fkcid:number
   ){}
 }

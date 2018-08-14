@@ -17,23 +17,28 @@
       <ul class="nav navbar-nav" *ngFor="let item of cuisinearr">
         <li><a (click)="onclickmenu(item.cname)" >{{item.cname}}</a></li>
       </ul>
+      <ul class="nav navbar-nav" >
+          <li><a (click)="onclickpastorder()" >Past Order</a></li>
+          <li><a (click)="onclicklogout()" >Logout</a></li>
+        </ul>
+
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
 <!-- Header ended -->
 
-<div class="row ">
+<div class="row  container-fluid">
     <!-- column start -->
 <div class="col-md-8">
 
-<div class="row" >
-  <div class="col-md-5 col-sm-5" *ngFor="let item of disharr,let i=index">
-    <div class="thumbnail">
-      <td><img src="http://localhost:3000/images/{{item.dimg}}" alt="image" height="150px" width="200px"></td>
+<div class="row"  >
+  <div class="col-md-4 col-sm-5" *ngFor="let item of disharr,let i=index">
+    <div class="thumbnail" (click)="onclickfood(item)">
+      <td><img style="padding-left: 50px;" src="{{'http://localhost:3000/images/' + item.dimage}}"  alt="image" class="zoom" height="150px" width="200px"></td>
       <div class="caption">
           <td><h3>{{item.dname}}</h3></td><br>
         <td><h3>{{item.dprice}}</h3></td>
-        <p><a  class="btn btn-primary" role="button" (click)="onclickfood(item)" >Add to kart</a></p>
+
       </div>
     </div>
   </div>
@@ -66,4 +71,5 @@
   </tr>
 </table>
 <h1>Total: {{total}}</h1>
+<button (click)="oncheckout()">Checkout</button>
 </div>

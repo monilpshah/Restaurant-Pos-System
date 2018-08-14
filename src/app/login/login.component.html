@@ -1,0 +1,44 @@
+<!--Header Part-->
+
+<app-headerlogin></app-headerlogin>
+
+
+<!--Body Part-->
+
+<form #f="ngForm">
+<div class="container">
+  <label for="uname">
+    <b>Email Id</b>
+  </label>
+  <input type="text" placeholder="Enter Email Id" name="uname" [(ngModel)]="CustomerId" email required #emailId1="ngModel">
+
+  <div [hidden]="emailId1.untouched || emailId1.valid">
+      <div [hidden]="!emailId1?.errors?.minlength" class="alert alert-danger">
+          Email Id require
+          </div>
+      </div>
+
+  <label for="psw">
+    <b>Password</b>
+  </label>
+  <input type="password" placeholder="Enter Password" name="psw" [(ngModel)]="Password" required #password1="ngModel">
+
+  <div [hidden]="password1.untouched">
+      <div [hidden]="!password1?.errors?.minlength" class="alert alert-danger">
+          Password is require
+          </div>
+      </div>
+
+  <button type="submit" (click)="login()">Login</button>
+  <label>
+    <input type="checkbox" checked="checked" name="remember"> Remember me
+  </label>
+</div>
+
+<div class="container" style="background-color:#f1f1f1">
+  <button type="button" class="cancelbtn" (click)="cancel()">Cancel</button>
+  <span class="psw">Forgot
+    <a (click)="onforgetpassword()">password?</a>
+  </span>
+</div>
+</form>

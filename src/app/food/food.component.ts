@@ -2,7 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FoodService } from './food.service';
 import { dish } from './dish';
 import { cuisine } from './cuisine';
-
+import { BillService } from './bill.service';
+import { bill_tbl } from './bill_tbl';
+import { bill_details } from './bill_detail';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-food',
@@ -25,11 +28,14 @@ export class FoodComponent implements OnInit {
   sum:number[]=[];
   total:number=0;
   i:number;
+  userid:string;
+  bill_tblarr:bill_details[]=[];
 
   onefif:number[]=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
-  constructor( private _foodservice:FoodService) { }
+  constructor( private _foodservice:FoodService,private _bill:BillService,private _route:Router,private _acroute:ActivatedRoute) { }
 
   ngOnInit() {
+    this.userid=localStorage.getItem('userId');
     this._foodservice.getalldish().subscribe(
       (data:any)=>{
         this.disharr=data;
@@ -42,10 +48,14 @@ export class FoodComponent implements OnInit {
           this.cuisinearr=data;
       }
     );
-
-
-
   }
+
+  onclicklogout(){
+    localStorage.clear();
+    this._route.navigate(['']);
+  }
+
+
   onclickmenu(cuisinename){
     this._foodservice.getdishcuisine(cuisinename).subscribe(
       (data:dish[])=>{
@@ -61,8 +71,6 @@ export class FoodComponent implements OnInit {
     );
   }
 
-
-
   onclickfood(item){
 
       if(this.orderarr.find(x=>x.dname==item.dname)){
@@ -74,7 +82,9 @@ export class FoodComponent implements OnInit {
         this.total=this.total+item.dprice;
         this.sum.push(item.dprice);}
   }
-
+  onclickpastorder(){
+    this._route.navigate(['/pastorder',this.userid]);
+  }
 
 
   onDelete(item,i){
@@ -93,6 +103,27 @@ export class FoodComponent implements OnInit {
     this.sum[i]=this.qty[i]*item.dprice;
     this.total=this.total+this.sum[i];
     }
+  }
+  oncheckout(){
+
+    this._bill.addbill(new bill_tbl(this.userid,this.total)).subscribe(
+      (data:any)=>{
+        alert("Congratulations...Your order is booked.")
+        this._route.navigate(['/pastorder',this.userid]);
+
+        for(this.i=0;this.i<this.sum.length;this.i++)
+      {
+        this.bill_tblarr.push(new bill_details(this.qty[this.i],this.sum[this.i],this.orderarr[this.i].did,data.insertId));
+      }
+      this._bill.addbilldetail(this.bill_tblarr).subscribe(
+        (data:any)=>{
+          console.log(data);
+        }
+      );
+
+      }
+    );
+
   }
 
 }

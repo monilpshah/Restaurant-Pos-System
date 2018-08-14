@@ -14,34 +14,34 @@ router.post('/', function (req, res, next) {
   });
 });
 
-// router.get('/:cname', function (req, res, next) {
+router.get('/:userid?', function (req, res, next) {
 
-//   if (req.params.cname) {
+  if (req.params.userid) {
 
-//     dishcuisine.getdishcuisine(req.params.cname, function (err, rows) {
+    bill.getbillbyid(req.params.userid, function (err, rows) {
 
-//       if (err) {
-//         res.json(err);
-//       }
-//       else {
-//         res.json(rows);
-//       }
-//     });
-//   }
-//   else {
+      if (err) {
+        res.json(err);
+      }
+      else {
+        res.json(rows);
+      }
+    });
+  }
+  else {
 
-//     dish.getalldish(function (err, rows) {
+    bill.getbill(function (err, rows) {
 
-//       if (err) {
-//         res.json(err);
-//       }
-//       else {
-//         res.json(rows);
-//       }
+      if (err) {
+        res.json(err);
+      }
+      else {
+        res.json(rows);
+      }
 
-//     });
-//   }
-// });
+    });
+  }
+});
 
 
 

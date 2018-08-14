@@ -32,17 +32,17 @@ router.get('/:cid?', function (req, res, next) {
 });
 
 
-// router.post('/', function (req, res, next) {
+router.post('/', function (req, res, next) {
 
-//   Category.addCategory(req.body, function (err, rows) {
-//     if (err) {
-//       res.json(err);
-//     }
-//     else {
-//       res.json(rows);
-//     }
-//   });
-// });
+  cuisine.addcuisine(req.body, function (err, rows) {
+    if (err) {
+      res.json(err);
+    }
+    else {
+      res.json(rows);
+    }
+  });
+});
 
 
 // router.delete('/:id', function (req, res, next) {

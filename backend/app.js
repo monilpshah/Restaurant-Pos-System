@@ -11,6 +11,13 @@ var dish=require('./routes/dish_route');
 var cuisine=require('./routes/cuisine_route');
 var dishcuisine=require('./routes/getdishcuisine_route');
 var bill=require('./routes/bill_route');
+var billdetails=require('./routes/bill_details_route');
+var pastorder=require('./routes/pastorder_route');
+var pastorderdetails=require('./routes/pastorderdetails_route');
+var login =require('./routes/login_route');
+var signup = require('./routes/signup');
+var forgetpassword =require('./routes/forgetpassword');
+var admin=require('./routes/adminlogin_route');
 
 var app = express();
 
@@ -28,6 +35,13 @@ app.use('/dish',dish);
 app.use('/cuisine',cuisine);
 app.use('/dishcuisine',dishcuisine);
 app.use('/bill',bill);
+app.use('/billdetails',billdetails);
+app.use('/pastorder',pastorder);
+app.use('/pastorderdetails',pastorderdetails);
+app.use('/login',login);
+app.use('/signup',signup);
+app.use('/forgetpassword',forgetpassword);
+app.use('/admin',admin);
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
